@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moi, plus tard — Des lettres à votre futur vous</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Pinyon+Script&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="paper-bg" aria-hidden="true">
+    <span class="wash w1"></span>
+    <span class="wash w2"></span>
+    <span class="wash w3"></span>
+    <span class="damask"></span>
+    <span class="flourish"></span>
+  </div>
+
+  <header class="site-header">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">M</span>
+      <div>
+        <h1>Moi, plus tard</h1>
+        <p class="tagline">Écrire aujourd’hui · Lire demain</p>
+      </div>
+    </div>
+
+    <button id="themeToggle" class="theme-toggle" type="button" aria-label="Changer de thème" title="Changer de thème">
+      <span class="icon sun" aria-hidden="true">☼</span>
+      <span class="icon moon" aria-hidden="true">☾</span>
+    </button>
+  </header>
+
+  <main class="layout">
+    <!-- ============ Rédaction ============ -->
+    <section class="panel compose reveal" aria-labelledby="composeTitle">
+      <h2 id="composeTitle">Envoyer un mot vers l’avenir</h2>
+      <p class="panel-sub">Scellez une lettre aujourd’hui. Elle restera close jusqu’au moment que vous aurez choisi.</p>
+
+      <form id="capsuleForm" novalidate>
+        <div class="field">
+          <label for="name">Votre nom</label>
+          <input type="text" id="name" name="name" maxlength="40" placeholder="par ex. Camille" autocomplete="name" />
+          <small class="error" data-error-for="name"></small>
+        </div>
+
+        <div class="field">
+          <label for="message">Message à votre futur vous</label>
+          <textarea id="message" name="message" rows="6" maxlength="2000"
+            placeholder="Cher moi du futur, quand tu liras ces lignes, j’espère que tu auras…"></textarea>
+          <div class="field-meta">
+            <small class="error" data-error-for="message"></small>
+            <small class="counter"><span id="charCount">0</span> / 2000</small>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="unlockAt">Ouverture le</label>
+          <input type="datetime-local" id="unlockAt" name="unlockAt" />
+          <div class="quick-picks" role="group" aria-label="Échéances rapides">
+            <button type="button" class="chip" data-days="1">Demain</button>
+            <button type="button" class="chip" data-days="7">Dans une semaine</button>
+            <button type="button" class="chip" data-days="30">Dans un mois</button>
+            <button type="button" class="chip" data-days="365">Dans un an</button>
+          </div>
+          <small class="error" data-error-for="unlockAt"></small>
+        </div>
+
+        <button type="submit" class="btn-primary">
+          <span>Sceller la lettre</span>
+          <span class="btn-glow" aria-hidden="true"></span>
+        </button>
+      </form>
+
+      <figure class="quote" id="quoteBox">
+        <blockquote id="quoteText">—</blockquote>
+        <figcaption id="quoteAuthor"></figcaption>
+        <button type="button" id="newQuote" class="quote-refresh" aria-label="Afficher une autre citation">↻</button>
+      </figure>
+    </section>
+
+    <!-- ============ Correspondance ============ -->
+    <section class="panel dashboard reveal" aria-labelledby="dashTitle">
+      <div class="dash-head">
+        <div>
+          <h2 id="dashTitle">Vos lettres</h2>
+          <p class="panel-sub" id="statLine">Aucune lettre pour l’instant.</p>
+        </div>
+        <div class="filters" role="group" aria-label="Filtrer les lettres">
+          <button type="button" class="chip active" data-filter="all">Toutes</button>
+          <button type="button" class="chip" data-filter="locked">Scellées</button>
+          <button type="button" class="chip" data-filter="unlocked">Ouvertes</button>
+        </div>
+      </div>
+
+      <div id="capsuleList" class="capsule-list" aria-live="polite"></div>
+
+      <div id="emptyState" class="empty">
+        <span class="empty-icon" aria-hidden="true">❦</span>
+        <p>Rien de scellé pour l’instant. Votre première lettre vers l’avenir n’attend qu’un formulaire.</p>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- Fenêtre affichée à l’ouverture d’une lettre -->
+  <div id="revealOverlay" class="overlay" role="dialog" aria-modal="true" aria-labelledby="revealHeading" hidden>
+    <div class="overlay-card">
+      <div class="confetti" id="confetti" aria-hidden="true"></div>
+      <span class="overlay-icon" aria-hidden="true">❧</span>
+      <h3 id="revealHeading">Une lettre vient de s’ouvrir</h3>
+      <p class="overlay-meta" id="revealMeta"></p>
+      <p class="overlay-body" id="revealBody"></p>
+      <button type="button" class="btn-primary" id="closeReveal">La relire plus tard</button>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p>Tout reste dans ce navigateur — les lettres sont enregistrées dans <code>localStorage</code>.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
